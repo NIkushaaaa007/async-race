@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { startCarThunk, stopCarThunk } from '../race/raceThunks';
 import { calculateDriveDurationMs } from '../../utils/animation';
+import CarIcon from './CarIcon';
 import type { Car } from '../../types';
 
 interface CarItemProps {
@@ -9,6 +10,11 @@ interface CarItemProps {
   onSelect: (id: number) => void;
   onDelete: (id: number) => void;
   raceLocked: boolean;
+}
+
+function getTrackTravelPx(trackEl: HTMLDivElement | null): number {
+  const trackWidth = trackEl?.clientWidth ?? 300;
+  return Math.max(trackWidth - 100, 0);
 }
 
 function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.ReactElement {
@@ -22,23 +28,15 @@ function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.R
   const isDriving = status === 'driving';
   const isStopped = status === 'idle' || status === 'stopped';
   const hasMoved = isDriving || status === 'finished' || status === 'broken';
-
-  const transitionMs = calculateDriveDurationMs(distance, velocity);
-
-  const getTrackTravelPx = (): number => {
-    const trackWidth = trackRef.current?.clientWidth ?? 300;
-    return Math.max(trackWidth - 100, 0);
-  };
+  const transitionMs = isDriving ? calculateDriveDurationMs(distance, velocity) : 0;
+  const travelPx = hasMoved ? getTrackTravelPx(trackRef.current) : 0;
 
   const handleStart = (): void => {
     dispatch(startCarThunk({ car }));
   };
-
   const handleStop = (): void => {
     dispatch(stopCarThunk(car));
   };
-
-  const travelPx = hasMoved ? getTrackTravelPx() : 0;
 
   return (
     <div className="car-item">
@@ -59,21 +57,7 @@ function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.R
       </div>
 
       <div className="car-track" ref={trackRef}>
-        <svg
-          className="car-icon"
-          width="60"
-          height="30"
-          viewBox="0 0 60 30"
-          fill={car.color}
-          style={{
-            transform: `translateX(${travelPx}px)`,
-            transition: isDriving ? `transform ${transitionMs}ms linear` : 'none',
-          }}
-        >
-          <rect x="5" y="10" width="50" height="12" rx="3" />
-          <circle cx="15" cy="24" r="5" fill="#333" />
-          <circle cx="45" cy="24" r="5" fill="#333" />
-        </svg>
+        <CarIcon color={car.color} translateX={travelPx} transitionMs={transitionMs} />
         <div className="finish-flag">🏁</div>
       </div>
     </div>

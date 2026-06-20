@@ -13,6 +13,11 @@ interface CarFormProps {
 
 const DEFAULT_COLOR = '#ff0000';
 
+function isValidName(name: string): boolean {
+  const trimmed = name.trim();
+  return trimmed.length > 0 && trimmed.length <= CAR_NAME_MAX_LENGTH;
+}
+
 function CarForm({
   title,
   initialName = '',
@@ -24,21 +29,19 @@ function CarForm({
   const [name, setName] = useState(initialName);
   const [color, setColor] = useState(initialColor);
 
-  // Re-sync fields when a different car gets selected for editing
   useEffect(() => {
     setName(initialName);
     setColor(initialColor);
   }, [initialName, initialColor]);
 
-  const trimmedName = name.trim();
-  const isNameValid = trimmedName.length > 0 && trimmedName.length <= CAR_NAME_MAX_LENGTH;
+  const nameValid = isValidName(name);
+  const showError = !nameValid && name.trim().length === 0 && name.length > 0;
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    if (!isNameValid) return;
-    onSubmit({ name: trimmedName, color });
+    if (!nameValid) return;
+    onSubmit({ name: name.trim(), color });
     if (!initialName) {
-      // creation form: clear after submit
       setName('');
       setColor(DEFAULT_COLOR);
     }
@@ -55,12 +58,10 @@ function CarForm({
         onChange={(event) => setName(event.target.value)}
       />
       <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
-      <button type="submit" disabled={disabled || !isNameValid}>
+      <button type="submit" disabled={disabled || !nameValid}>
         {submitLabel}
       </button>
-      {!isNameValid && trimmedName.length === 0 && name.length > 0 && (
-        <span className="form-error">Name cannot be empty</span>
-      )}
+      {showError && <span className="form-error">Name cannot be empty</span>}
     </form>
   );
 }
