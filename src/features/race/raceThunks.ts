@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../api/carsApi';
 import { setCarStatus, setCarEngineData, announceWinner } from './raceSlice';
 import { saveWinnerThunk } from '../garage/garageSlice';
-import { calculateDriveDurationMs } from '../../utils/animation';
 import type { Car } from '../../types';
 
 interface StartCarArgs {
