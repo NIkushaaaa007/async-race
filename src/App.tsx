@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { setActiveView } from './app/uiSlice';
+import GarageView from './features/garage/GarageView';
+import WinnersView from './features/winners/WinnersView';
 import './App.css';
 
-function App() {
+function App(): React.ReactElement {
+  const dispatch = useAppDispatch();
+  const activeView = useAppSelector((state) => state.ui.activeView);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="app">
+      <nav className="app-nav">
+        <button
+          type="button"
+          className={activeView === 'garage' ? 'nav-button active' : 'nav-button'}
+          onClick={() => dispatch(setActiveView('garage'))}
         >
-          Learn React
-        </a>
-      </header>
+          Garage
+        </button>
+        <button
+          type="button"
+          className={activeView === 'winners' ? 'nav-button active' : 'nav-button'}
+          onClick={() => dispatch(setActiveView('winners'))}
+        >
+          Winners
+        </button>
+      </nav>
+
+      <main className="app-main">
+        {activeView === 'garage' ? <GarageView /> : <WinnersView />}
+      </main>
     </div>
   );
 }
