@@ -11,11 +11,27 @@ export const RANDOM_CARS_COUNT = 100;
 export const CAR_NAME_MAX_LENGTH = 50;
 
 export const CAR_BRANDS = [
-  'Tesla', 'Ford', 'Toyota', 'BMW', 'Audi',
-  'Honda', 'Chevrolet', 'Nissan', 'Mazda', 'Kia',
+  'Tesla',
+  'Ford',
+  'Toyota',
+  'BMW',
+  'Audi',
+  'Honda',
+  'Chevrolet',
+  'Nissan',
+  'Mazda',
+  'Kia',
 ];
 
 export const CAR_MODELS = [
-  'Model S', 'Mustang', 'Corolla', 'M3', 'A4',
-  'Civic', 'Camaro', 'GT-R', 'MX-5', 'Sportage',
+  'Model S',
+  'Mustang',
+  'Corolla',
+  'M3',
+  'A4',
+  'Civic',
+  'Camaro',
+  'GT-R',
+  'MX-5',
+  'Sportage',
 ];

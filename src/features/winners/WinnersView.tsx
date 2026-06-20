@@ -6,9 +6,9 @@ import type { SortField } from '../../types';
 
 function WinnersView(): React.ReactElement {
   const dispatch = useAppDispatch();
-  const {
-    winners, totalCount, currentPage, sortField, sortOrder, status,
-  } = useAppSelector((state) => state.winners);
+  const { winners, totalCount, currentPage, sortField, sortOrder, status } = useAppSelector(
+    (state) => state.winners,
+  );
 
   useEffect(() => {
     dispatch(loadWinners({ page: currentPage, sortField, sortOrder }));
@@ -46,11 +46,15 @@ function WinnersView(): React.ReactElement {
               <th>№</th>
               <th>Car</th>
               <th>Name</th>
-              <th onClick={() => handleSortClick('wins')} className="sortable">
-                Wins{sortIndicator('wins')}
+              <th className="sortable">
+                <button type="button" onClick={() => handleSortClick('wins')}>
+                  Wins{sortIndicator('wins')}
+                </button>
               </th>
-              <th onClick={() => handleSortClick('time')} className="sortable">
-                Best time (s){sortIndicator('time')}
+              <th className="sortable">
+                <button type="button" onClick={() => handleSortClick('time')}>
+                  Best time (s){sortIndicator('time')}
+                </button>
               </th>
             </tr>
           </thead>
@@ -59,7 +63,14 @@ function WinnersView(): React.ReactElement {
               <tr key={winner.id}>
                 <td>{(currentPage - 1) * WINNERS_PER_PAGE + index + 1}</td>
                 <td>
-                  <svg width="40" height="20" viewBox="0 0 60 30" fill={winner.color}>
+                  <svg
+                    width="40"
+                    height="20"
+                    viewBox="0 0 60 30"
+                    fill={winner.color}
+                    role="img"
+                    aria-label={`${winner.name} car icon`}
+                  >
                     <rect x="5" y="10" width="50" height="12" rx="3" />
                     <circle cx="15" cy="24" r="5" fill="#333" />
                     <circle cx="45" cy="24" r="5" fill="#333" />
@@ -75,11 +86,7 @@ function WinnersView(): React.ReactElement {
       )}
 
       <div className="pagination">
-        <button
-          type="button"
-          disabled={currentPage <= 1}
-          onClick={() => goToPage(currentPage - 1)}
-        >
+        <button type="button" disabled={currentPage <= 1} onClick={() => goToPage(currentPage - 1)}>
           Prev
         </button>
         <span>

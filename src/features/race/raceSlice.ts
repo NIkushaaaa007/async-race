@@ -36,10 +36,7 @@ const raceSlice = createSlice({
       const existing = state.carStates[id] ?? defaultCarState;
       state.carStates[id] = { ...existing, velocity, distance };
     },
-    setCarStatus(
-      state,
-      action: PayloadAction<{ id: number; status: CarEngineStatus }>,
-    ) {
+    setCarStatus(state, action: PayloadAction<{ id: number; status: CarEngineStatus }>) {
       const { id, status } = action.payload;
       const existing = state.carStates[id] ?? defaultCarState;
       state.carStates[id] = { ...existing, status };
@@ -59,10 +56,7 @@ const raceSlice = createSlice({
     setRacing(state, action: PayloadAction<boolean>) {
       state.isRacing = action.payload;
     },
-    announceWinner(
-      state,
-      action: PayloadAction<{ id: number; name: string; time: number }>,
-    ) {
+    announceWinner(state, action: PayloadAction<{ id: number; name: string; time: number }>) {
       // Only the first car to finish should be announced
       if (state.winnerId === null) {
         state.winnerId = action.payload.id;

@@ -54,11 +54,7 @@ function CarForm({
         maxLength={CAR_NAME_MAX_LENGTH}
         onChange={(event) => setName(event.target.value)}
       />
-      <input
-        type="color"
-        value={color}
-        onChange={(event) => setColor(event.target.value)}
-      />
+      <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
       <button type="submit" disabled={disabled || !isNameValid}>
         {submitLabel}
       </button>

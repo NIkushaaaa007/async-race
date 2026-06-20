@@ -21,13 +21,10 @@ const initialState: GarageState = {
 
 // ---------- Thunks ----------
 
-export const loadCars = createAsyncThunk(
-  'garage/loadCars',
-  async (page: number) => {
-    const { data, totalCount } = await api.fetchCars(page, CARS_PER_PAGE);
-    return { data, totalCount };
-  },
-);
+export const loadCars = createAsyncThunk('garage/loadCars', async (page: number) => {
+  const { data, totalCount } = await api.fetchCars(page, CARS_PER_PAGE);
+  return { data, totalCount };
+});
 
 export const addCar = createAsyncThunk(
   'garage/addCar',
@@ -40,10 +37,7 @@ export const addCar = createAsyncThunk(
 
 export const editCar = createAsyncThunk(
   'garage/editCar',
-  async (
-    { id, car }: { id: number; car: CarFormData },
-    { dispatch, getState },
-  ) => {
+  async ({ id, car }: { id: number; car: CarFormData }, { dispatch, getState }) => {
     await api.updateCar(id, car);
     const state = getState() as { garage: GarageState };
     await dispatch(loadCars(state.garage.currentPage));

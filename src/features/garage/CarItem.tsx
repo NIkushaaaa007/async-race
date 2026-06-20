@@ -27,7 +27,7 @@ function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.R
 
   const getTrackTravelPx = (): number => {
     const trackWidth = trackRef.current?.clientWidth ?? 300;
-    return Math.max(trackWidth - 80, 0);
+    return Math.max(trackWidth - 100, 0);
   };
 
   const handleStart = (): void => {

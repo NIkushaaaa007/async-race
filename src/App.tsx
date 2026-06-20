@@ -28,9 +28,7 @@ function App(): React.ReactElement {
         </button>
       </nav>
 
-      <main className="app-main">
-        {activeView === 'garage' ? <GarageView /> : <WinnersView />}
-      </main>
+      <main className="app-main">{activeView === 'garage' ? <GarageView /> : <WinnersView />}</main>
     </div>
   );
 }

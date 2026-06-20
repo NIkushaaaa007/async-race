@@ -45,21 +45,16 @@ export const startCarThunk = createAsyncThunk(
   },
 );
 
-export const stopCarThunk = createAsyncThunk(
-  'race/stopCar',
-  async (car: Car, { dispatch }) => {
-    await api.stopEngine(car.id);
-    dispatch(setCarEngineData({ id: car.id, velocity: 0, distance: 0 }));
-    dispatch(setCarStatus({ id: car.id, status: 'stopped' }));
-  },
-);
+export const stopCarThunk = createAsyncThunk('race/stopCar', async (car: Car, { dispatch }) => {
+  await api.stopEngine(car.id);
+  dispatch(setCarEngineData({ id: car.id, velocity: 0, distance: 0 }));
+  dispatch(setCarStatus({ id: car.id, status: 'stopped' }));
+});
 
 // Fires startCarThunk for every car on the current page, in parallel.
 export const startRaceThunk = createAsyncThunk(
   'race/startRace',
   async (cars: Car[], { dispatch }) => {
-    await Promise.all(
-      cars.map((car) => dispatch(startCarThunk({ car }))),
-    );
+    await Promise.all(cars.map((car) => dispatch(startCarThunk({ car }))));
   },
 );

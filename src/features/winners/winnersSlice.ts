@@ -30,9 +30,7 @@ interface LoadWinnersArgs {
 // Winners endpoint only returns id/wins/time — we join each one with its
 // car's name/color from the garage endpoint so the table can render an image.
 async function attachCarData(winners: Winner[]): Promise<WinnerWithCar[]> {
-  const cars = await Promise.all(
-    winners.map((winner) => api.fetchCar(winner.id)),
-  );
+  const cars = await Promise.all(winners.map((winner) => api.fetchCar(winner.id)));
   return winners.map((winner, index) => ({
     ...winner,
     name: cars[index].name,

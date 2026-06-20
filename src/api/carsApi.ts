@@ -1,8 +1,4 @@
-import {
-  GARAGE_ENDPOINT,
-  ENGINE_ENDPOINT,
-  WINNERS_ENDPOINT,
-} from '../utils/constants';
+import { GARAGE_ENDPOINT, ENGINE_ENDPOINT, WINNERS_ENDPOINT } from '../utils/constants';
 import type {
   Car,
   CarFormData,
@@ -18,11 +14,7 @@ interface PaginatedResult<T> {
   totalCount: number;
 }
 
-
-export async function fetchCars(
-  page: number,
-  limit: number,
-): Promise<PaginatedResult<Car>> {
+export async function fetchCars(page: number, limit: number): Promise<PaginatedResult<Car>> {
   const url = `${GARAGE_ENDPOINT}?_page=${page}&_limit=${limit}`;
   const response = await fetch(url);
   const data: Car[] = await response.json();
@@ -59,7 +51,6 @@ export async function createRandomCars(cars: CarFormData[]): Promise<Car[]> {
   return Promise.all(cars.map((car) => createCar(car)));
 }
 
-
 export async function startEngine(id: number): Promise<EngineResponse> {
   const response = await fetch(`${ENGINE_ENDPOINT}?id=${id}&status=started`, {
     method: 'PATCH',
@@ -83,7 +74,6 @@ export async function driveEngine(id: number): Promise<DriveResponse> {
   }
   return response.json();
 }
-
 
 export async function fetchWinners(
   page: number,
@@ -113,10 +103,7 @@ export async function createWinner(winner: Winner): Promise<Winner> {
   return response.json();
 }
 
-export async function updateWinner(
-  id: number,
-  winner: Omit<Winner, 'id'>,
-): Promise<Winner> {
+export async function updateWinner(id: number, winner: Omit<Winner, 'id'>): Promise<Winner> {
   const response = await fetch(`${WINNERS_ENDPOINT}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

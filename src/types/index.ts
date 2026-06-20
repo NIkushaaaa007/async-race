@@ -1,4 +1,3 @@
-
 export interface Car {
   id: number;
   name: string;
@@ -16,21 +15,17 @@ export interface Winner {
   time: number;
 }
 
-
 export interface WinnerWithCar extends Winner {
   name: string;
   color: string;
 }
 
-
 export type EngineStatus = 'started' | 'stopped' | 'drive';
-
 
 export interface EngineResponse {
   velocity: number;
   distance: number;
 }
-
 
 export interface DriveResponse {
   success: boolean;
@@ -39,14 +34,7 @@ export interface DriveResponse {
 export type SortField = 'wins' | 'time';
 export type SortOrder = 'ASC' | 'DESC';
 
-
-export type CarEngineStatus =
-  | 'idle'
-  | 'started'
-  | 'driving'
-  | 'stopped'
-  | 'finished'
-  | 'broken';
+export type CarEngineStatus = 'idle' | 'started' | 'driving' | 'stopped' | 'finished' | 'broken';
 
 export interface CarRaceState {
   status: CarEngineStatus;

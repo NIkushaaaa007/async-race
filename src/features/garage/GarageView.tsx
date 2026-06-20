@@ -16,6 +16,7 @@ import { generateRandomCars } from '../../utils/randomCar';
 import CarItem from './CarItem';
 import CarForm from './CarForm';
 import type { CarFormData } from '../../types';
+import WinnerBanner from '../race/WinnerBanner';
 
 function GarageView(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -70,14 +71,10 @@ function GarageView(): React.ReactElement {
   return (
     <section>
       <h1>Garage ({totalCount})</h1>
+      <WinnerBanner />
 
       <div className="forms-row">
-        <CarForm
-          title="Create"
-          disabled={false}
-          submitLabel="Create"
-          onSubmit={handleCreate}
-        />
+        <CarForm title="Create" disabled={false} submitLabel="Create" onSubmit={handleCreate} />
         <CarForm
           title="Update"
           initialName={selectedCar?.name ?? ''}
