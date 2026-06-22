@@ -4,9 +4,15 @@ interface CarIconProps {
   color: string;
   translateX: number;
   transitionMs: number;
+  onTransitionEnd?: () => void;
 }
 
-function CarIcon({ color, translateX, transitionMs }: CarIconProps): React.ReactElement {
+function CarIcon({
+  color,
+  translateX,
+  transitionMs,
+  onTransitionEnd,
+}: CarIconProps): React.ReactElement {
   return (
     <svg
       className="car-icon"
@@ -16,6 +22,7 @@ function CarIcon({ color, translateX, transitionMs }: CarIconProps): React.React
       fill={color}
       role="img"
       aria-label="car"
+      onTransitionEnd={onTransitionEnd}
       style={{
         transform: `translateX(${translateX}px)`,
         transition: transitionMs > 0 ? `transform ${transitionMs}ms linear` : 'none',
@@ -27,5 +34,9 @@ function CarIcon({ color, translateX, transitionMs }: CarIconProps): React.React
     </svg>
   );
 }
+
+CarIcon.defaultProps = {
+  onTransitionEnd: undefined,
+};
 
 export default CarIcon;

@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { CarRaceState, CarEngineStatus } from '../../types';
 
 interface RaceState {
-  // keyed by car id
   carStates: Record<number, CarRaceState>;
+  pendingFinishTimes: Record<number, number>;
   isRacing: boolean;
   winnerId: number | null;
   winnerName: string | null;
@@ -12,6 +12,7 @@ interface RaceState {
 
 const initialState: RaceState = {
   carStates: {},
+  pendingFinishTimes: {},
   isRacing: false,
   winnerId: null,
   winnerName: null,
@@ -41,13 +42,18 @@ const raceSlice = createSlice({
       const existing = state.carStates[id] ?? defaultCarState;
       state.carStates[id] = { ...existing, status };
     },
+    setCarFinishTime(state, action: PayloadAction<{ id: number; finishSeconds: number }>) {
+      state.pendingFinishTimes[action.payload.id] = action.payload.finishSeconds;
+    },
     resetCarState(state, action: PayloadAction<number>) {
       state.carStates[action.payload] = { ...defaultCarState };
+      delete state.pendingFinishTimes[action.payload];
     },
     resetAllCarStates(state) {
       Object.keys(state.carStates).forEach((key) => {
         state.carStates[Number(key)] = { ...defaultCarState };
       });
+      state.pendingFinishTimes = {};
       state.winnerId = null;
       state.winnerName = null;
       state.winnerTime = null;
@@ -57,7 +63,6 @@ const raceSlice = createSlice({
       state.isRacing = action.payload;
     },
     announceWinner(state, action: PayloadAction<{ id: number; name: string; time: number }>) {
-      // Only the first car to finish should be announced
       if (state.winnerId === null) {
         state.winnerId = action.payload.id;
         state.winnerName = action.payload.name;
@@ -75,6 +80,7 @@ const raceSlice = createSlice({
 export const {
   setCarEngineData,
   setCarStatus,
+  setCarFinishTime,
   resetCarState,
   resetAllCarStates,
   setRacing,
