@@ -1,8 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { startCarThunk, stopCarThunk } from '../race/raceThunks';
-import { announceWinner } from '../race/raceSlice';
-import { saveWinnerThunk } from './garageSlice';
+import { setCarFinishTime } from '../race/raceSlice';
 import { calculateDriveDurationMs } from '../../utils/animation';
 import CarIcon from './CarIcon';
 import type { Car } from '../../types';
@@ -33,14 +32,11 @@ function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.R
   const isStopped = status === 'idle' || status === 'stopped';
   const isBroken = status === 'broken';
 
-  // When driving starts, record start time and reset frozen position
   if (isDriving && animationStartRef.current === 0) {
     animationStartRef.current = performance.now();
     frozenPxRef.current = 0;
   }
 
-  // When engine breaks, freeze the car at its current visual position
-  // by calculating how far it got before breaking
   const getProgressPx = (): number => {
     if (!isDriving && !isBroken) return 0;
     const trackPx = getTrackTravelPx(trackRef.current);
@@ -71,9 +67,6 @@ function CarItem({ car, onSelect, onDelete, raceLocked }: CarItemProps): React.R
 
   const handleVisualFinish = (): void => {
     if (status !== 'finished') return;
-    const elapsedSeconds = (performance.now() - animationStartRef.current) / 1000;
-    dispatch(announceWinner({ id: car.id, name: car.name, time: elapsedSeconds }));
-    dispatch(saveWinnerThunk({ id: car.id, time: elapsedSeconds }));
     animationStartRef.current = 0;
   };
 
