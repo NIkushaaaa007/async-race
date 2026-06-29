@@ -1,3 +1,46 @@
+Basic Structure — 80/80 pts
+
+✅ Two Views (10pts)
+✅ Garage View Content — name, create/edit panel, race control panel, garage section (30pts)
+✅ Winners View Content — name, table, pagination (10pts)
+✅ Persistent State — page numbers and inputs preserved between view switches (30pts)
+
+Garage View — 90/90 pts
+
+✅ CRUD Operations — create, update, delete, empty/too-long names handled, deleted from winners too (20pts)
+✅ Color Selection — RGB color picker, color shown on car image (10pts)
+✅ Random Car Creation — 100 cars, 10 brands × 10 models, random hex color (20pts)
+✅ Car Management Buttons — select and delete per car (10pts)
+✅ Pagination — 7 per page (10pts)
+✅ Extra: Empty Garage message (10pts)
+✅ Extra: Auto-redirect to previous page when last car on page deleted (10pts)
+
+Winners View — 50/50 pts
+
+✅ Display Winners — car shown after winning (15pts)
+✅ Pagination — 10 per page (10pts)
+✅ Winners Table — №, icon, name, wins, best time; wins increment, best time only updated if faster (15pts)
+✅ Sorting — by wins and time, ASC/DESC (10pts)
+
+Race — 170/170 pts
+
+✅ Start Engine Animation — waits for velocity, animates, calls drive, stops on 500 (20pts)
+✅ Stop Engine Animation — waits for response, car returns to start (20pts)
+✅ Responsive Animation — works on 500px screens (30pts)
+✅ Start Race Button — starts all cars on current page (10pts)
+✅ Reset Race Button — returns all cars to start (15pts)
+✅ Winner Announcement — banner shows first car's name (5pts)
+✅ Button States — start disabled while driving, stop disabled while idle (20pts)
+✅ Actions during race — delete, edit, create, pagination, view switching all blocked (50pts)
+
+Prettier and ESLint — 10/10 pts
+
+✅ Prettier — format and ci:format scripts in package.json (5pts)
+✅ ESLint — Airbnb config, lint script, strict tsconfig (5pts)
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -45,42 +88,3 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-Basic Structure — 80/80 pts
-
-✅ Two Views (10pts)
-✅ Garage View Content — name, create/edit panel, race control panel, garage section (30pts)
-✅ Winners View Content — name, table, pagination (10pts)
-✅ Persistent State — page numbers and inputs preserved between view switches (30pts)
-
-Garage View — 90/90 pts
-
-✅ CRUD Operations — create, update, delete, empty/too-long names handled, deleted from winners too (20pts)
-✅ Color Selection — RGB color picker, color shown on car image (10pts)
-✅ Random Car Creation — 100 cars, 10 brands × 10 models, random hex color (20pts)
-✅ Car Management Buttons — select and delete per car (10pts)
-✅ Pagination — 7 per page (10pts)
-✅ Extra: Empty Garage message (10pts)
-✅ Extra: Auto-redirect to previous page when last car on page deleted (10pts)
-
-Winners View — 50/50 pts
-
-✅ Display Winners — car shown after winning (15pts)
-✅ Pagination — 10 per page (10pts)
-✅ Winners Table — №, icon, name, wins, best time; wins increment, best time only updated if faster (15pts)
-✅ Sorting — by wins and time, ASC/DESC (10pts)
-
-Race — 170/170 pts
-
-✅ Start Engine Animation — waits for velocity, animates, calls drive, stops on 500 (20pts)
-✅ Stop Engine Animation — waits for response, car returns to start (20pts)
-✅ Responsive Animation — works on 500px screens (30pts)
-✅ Start Race Button — starts all cars on current page (10pts)
-✅ Reset Race Button — returns all cars to start (15pts)
-✅ Winner Announcement — banner shows first car's name (5pts)
-✅ Button States — start disabled while driving, stop disabled while idle (20pts)
-✅ Actions during race — delete, edit, create, pagination, view switching all blocked (50pts)
-
-Prettier and ESLint — 10/10 pts
-
-✅ Prettier — format and ci:format scripts in package.json (5pts)
-✅ ESLint — Airbnb config, lint script, strict tsconfig (5pts)
